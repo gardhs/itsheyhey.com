@@ -1,0 +1,328 @@
+:root {
+    --countdown-bg: rgba(255, 255, 255, 0.941);
+    --countdown-bg2:rgba(0, 0, 0, 0.59);
+    --text-color: #333;
+    --accent-color: #e8d3d1;
+    --button-color: #f8f8f8;
+    --button-hover: #f0f0f0;
+    --button-shadow: rgba(0, 0, 0, 0.1);
+    --rose-shadow: rgba(0, 0, 0, 0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: url("photo.png") no-repeat center 35% fixed;
+    background-size: cover;
+    color: var(--text-color);
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background overlay with fade effect at the top */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent);
+    z-index: 0;
+}
+
+/* Vine Styling */
+.vine {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.vine-left {
+    left: 10px;
+}
+
+.vine-right {
+    right: 10px;
+    transform: scaleX(-1);
+}
+
+/* Rose and Leaf Styling */
+.rose, .leaf {
+    position: absolute;
+    opacity: 0;
+}
+
+.rose {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    filter: drop-shadow(0 3px 5px var(--rose-shadow));
+    will-change: transform, opacity;
+    z-index: 1;
+}
+
+.leaf {
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+    will-change: transform, opacity;
+}
+
+/* Stem Styling */
+.stem {
+    position: absolute;
+    bottom: -10px;
+    width: 3px;
+    height: 0;
+    background-color: #228b22;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    transform-origin: bottom center;
+    z-index: -1;
+    will-change: height;
+}
+
+.header {
+    width: 100%;
+    padding: 25px 0 15px;
+    text-align: center;
+    z-index: 2;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.social-media a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: var(--countdown-bg);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+}
+
+.social-media a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    padding: 40px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+}
+
+.countdown-title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    font-weight: 500;
+    color: var(--text-color);
+    letter-spacing: 1.5px;
+    line-height: 1.2;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.countdown-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.countdown-value {
+    font-size: 3.8rem;
+    font-weight: 400;
+    color: var(--text-color);
+    background-color: var(--countdown-bg);
+    border-radius: 15px;
+    padding: 20px 15px;
+    min-width: 120px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.605);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.countdown-label {
+    font-size: 1.1rem;
+    margin-top: 12px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #000000;
+    background-color: var(--countdown-bg2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.605);
+}
+
+
+.music-button {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px var(--button-shadow);
+    margin-top: 25px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.music-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.music-button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.3s;
+}
+
+.music-button:hover::after {
+    left: 100%;
+}
+
+/* Rose container spacing */
+.rose-container-left, .rose-container-right {
+    position: absolute;
+    height: 100%;
+    width: 150px;
+    pointer-events: none;
+}
+
+.rose-container-left {
+    left: 0;
+}
+
+.rose-container-right {
+    right: 0;
+}
+
+/* Rose petal animation */
+.petal {
+    position: absolute;
+    border-radius: 50% 50% 0 50%;
+    transform-origin: bottom right;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+@media (max-width: 1000px) {
+    .rose-container-left, .rose-container-right {
+        width: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .countdown-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+    
+    .countdown-value {
+        font-size: 2.8rem;
+        min-width: 90px;
+        padding: 15px;
+    }
+    
+    .countdown-label {
+        font-size: 1rem;
+    }
+    
+    .social-media {
+        gap: 15px;
+    }
+    
+    .music-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+    
+    .rose-container-left, .rose-container-right {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-title {
+        font-size: 1.7rem;
+    }
+    
+    .countdown-value {
+        font-size: 2rem;
+        min-width: 70px;
+        padding: 10px;
+    }
+    
+    .countdown-timer {
+        gap: 15px;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+        color: #fff;
+    }
+    
+    .social-media a {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    
+    .rose-container-left, .rose-container-right {
+        width: 50px;
+    }
+}
