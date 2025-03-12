@@ -1,5 +1,5 @@
 :root {
-    --countdown-bg: rgba(255, 255, 255,0.9);
+    --countdown-bg: rgba(255, 255, 255);
     --countdown-bg2:rgba(0, 0, 0, 0.59);
     --text-color: #333;
     --accent-color: #e8d3d1;
@@ -7,6 +7,7 @@
     --button-hover: #f0f0f0;
     --button-shadow: rgba(0, 0, 0, 0.1);
     --rose-shadow: rgba(0, 0, 0, 0.12);
+    --footer-bg: #f8f8f8;
 }
 
 * {
@@ -20,12 +21,38 @@ body {
     background: url("photo.png") no-repeat center 35% fixed;
     background-size: cover;
     color: var(--text-color);
-    min-height: 50vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
     position: relative;
+    cursor: default;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+footer {
+    width: 100%;
+    background: #000;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
 }
 
 /* Background overlay with fade effect at the top */
@@ -38,6 +65,20 @@ body::before {
     height: 100%;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), transparent);
     z-index: 0;
+}
+
+/* Custom cursor */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    mix-blend-mode: difference;
 }
 
 /* Vine Styling */
@@ -126,11 +167,28 @@ body::before {
     background-color: var(--countdown-bg);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     z-index: 2;
+    position: relative;
+    overflow: hidden;
 }
 
 .social-media a:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.social-media a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.5s;
+}
+
+.social-media a:hover::after {
+    left: 100%;
 }
 
 .container {
@@ -154,6 +212,9 @@ body::before {
     color: var(--text-color);
     letter-spacing: 1.5px;
     line-height: 1.2;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards;
 }
 
 .countdown-timer {
@@ -168,7 +229,25 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+.countdown-segment:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.countdown-segment:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.countdown-segment:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.countdown-segment:nth-child(4) {
+    animation-delay: 0.8s;
 }
 
 .countdown-value {
@@ -181,6 +260,18 @@ body::before {
     min-width: 120px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.605);
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-value.pulse {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .countdown-label {
@@ -192,7 +283,6 @@ body::before {
     background-color: var(--countdown-bg2);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.605);
 }
-
 
 .music-button {
     display: inline-block;
@@ -213,6 +303,9 @@ body::before {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards 1s;
 }
 
 .music-button:hover {
@@ -234,6 +327,45 @@ body::before {
 
 .music-button:hover::after {
     left: 100%;
+}
+
+/* Floating particles */
+.particle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: float 15s linear infinite;
+    opacity: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Rose container spacing */
@@ -259,6 +391,148 @@ body::before {
     transform-origin: bottom right;
     opacity: 0;
     will-change: transform, opacity;
+}
+
+/* Single title animation */
+.single-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards 0.5s;
+}
+
+/* Drawing toggle button */
+.drawing-toggle {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--countdown-bg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.drawing-toggle:hover {
+    transform: scale(1.1);
+}
+
+.drawing-toggle.active {
+    background-color: #e8d3d1;
+}
+
+.drawing-toggle i {
+    color: var(--text-color);
+    font-size: 1.4rem;
+}
+
+/* Custom drawing */
+#drawing-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.drawing-element {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(232, 211, 209, 0.7);
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 998;
+}
+
+.drawing-element.animating {
+    animation: float 8s linear infinite;
+}
+
+/* Footer styles */
+.footer {
+    width: 100%;
+    background-color: var(--footer-bg);
+    padding: 25px 20px;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-left a {
+    color: var(--text-color);
+    font-size: 1.3rem;
+    transition: all 0.3s;
+}
+
+.footer-left a:hover {
+    transform: translateY(-3px);
+    color: #555;
+}
+
+.footer-center {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.music-platform {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.music-platform:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.music-platform i {
+    font-size: 1.2rem;
+}
+
+.footer-right {
+    font-size: 0.9rem;
+}
+
+.footer-right a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-right a:hover {
+    color: #555;
 }
 
 @media (max-width: 1000px) {
@@ -295,6 +569,21 @@ body::before {
     .rose-container-left, .rose-container-right {
         width: 70px;
     }
+    
+    .single-title {
+        font-size: 1.7rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .footer-left, .footer-center, .footer-right {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -324,5 +613,18 @@ body::before {
     
     .rose-container-left, .rose-container-right {
         width: 50px;
+    }
+    
+    .single-title {
+        font-size: 1.5rem;
+    }
+    
+    .footer-left {
+        gap: 15px;
+    }
+    
+    .footer-center {
+        flex-direction: column;
+        align-items: center;
     }
 }
